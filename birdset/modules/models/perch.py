@@ -27,14 +27,14 @@ class PerchModel(nn.Module):
         classifier (Optional[nn.Linear]): A linear classifier layer on top of the embeddings.
     """
 
-    # Constants for the model URL and embedding size
-    PERCH_TF_HUB_URL = "https://tfhub.dev/google/bird-vocalization-classifier"
+    # Constants for the embedding size
     EMBEDDING_SIZE = 1280
 
     def __init__(
         self,
         num_classes: int,
         tfhub_version: str,
+        tfhub_url: str,
         train_classifier: bool = False,
         restrict_logits: bool = False,
         label_path: Optional[str] = None,
@@ -58,6 +58,7 @@ class PerchModel(nn.Module):
 
         self.num_classes = num_classes
         self.tfhub_version = tfhub_version
+        self.tfhub_url = tfhub_url
         self.train_classifier = train_classifier
         self.restrict_logits = restrict_logits
         self.label_path = label_path
@@ -88,7 +89,7 @@ class PerchModel(nn.Module):
         """
         Load the model from TensorFlow Hub.
         """
-        model_url = f"{self.PERCH_TF_HUB_URL}/{self.tfhub_version}"
+        model_url = f"{self.tfhub_url}/{self.tfhub_version}"
         # self.model = hub.load(model_url)
         # with tf.device('/CPU:0'):
         #     model = hub.load(model_url)
@@ -196,10 +197,12 @@ class PerchModel(nn.Module):
 
         # Run the model and get the outputs using the optimized TensorFlow function
         outputs = self.run_tf_model(input_tensor=input_tensor)
+        embeddings_key = "embedding" if "embedding" in outputs else "output_1"
+        logits_key = "label" if "label" in outputs else "output_0"
 
         # Extract embeddings and logits, convert them to PyTorch tensors
-        embeddings = torch.from_numpy(outputs["output_1"].numpy())
-        logits = torch.from_numpy(outputs["output_0"].numpy())
+        embeddings = torch.from_numpy(outputs[embeddings_key].numpy())
+        logits = torch.from_numpy(outputs[logits_key].numpy())
 
         if self.class_mask:
             # Initialize full_logits to a large negative value for penalizing non-present classes
