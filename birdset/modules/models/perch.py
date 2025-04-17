@@ -16,7 +16,6 @@ class PerchModel(nn.Module):
     A PyTorch model for bird vocalization classification, integrating a TensorFlow Hub model.
 
     Attributes:
-        PERCH_TF_HUB_URL (str): URL to the TensorFlow Hub model for bird vocalization.
         EMBEDDING_SIZE (int): The size of the embeddings produced by the TensorFlow Hub model.
         num_classes (int): The number of classes to classify into.
         tfhub_version (str): The version of the TensorFlow Hub model to use.

@@ -12,7 +12,9 @@ for DATASET in NBP PER NES UHH HSN NBP SSW SNE; do
   fi
   poetry run python -m birdset.eval \
     experiment=birdset_neurips24/$DATASET/LT/perch.yaml \
-    module.network.model.tfhub_version=8 \
+    module.network.model.tfhub_url=$HOME \
+    module.network.model.tfhub_version=perch_v2 \
+    'module.network.model.label_path=${paths.root_dir}/resources/perch/perch_v2_ebird_classes.csv' \
     datamodule.dataset.n_workers=$N_WORKERS \
     paths.output_dir=$OUTPUT_DIR
 done
