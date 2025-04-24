@@ -4,7 +4,7 @@ defaults:
   - override /module: multilabel.yaml
   - override /module/network: perch_inference.yaml
   - override /callbacks: default.yaml 
-  - override /trainer: single_gpu.yaml
+  - override /trainer: default.yaml
   - override /datamodule/transforms: bird_default_multilabel.yaml
   - override /paths: default.yaml
   - override /hydra: default.yaml
