@@ -10,8 +10,9 @@ python = ">=3.10,<3.11"
 scipy = "^1.11.3"
 ffprobe = "^0.5"
 # --------- pytorch --------- #
-torch = {version = "2.6.0", source = "pytorch-gpu-src"}
-torchvision = {version = "0.21.0", source = "pytorch-gpu-src"}
+torch = {version = "2.6.0", source = "pytorch-cpu-src"}
+torchvision = {version = "0.21.0", source = "pytorch-cpu-src"}
+torchaudio = {version = "2.6.0", source = "pytorch-cpu-src"}
 
 lightning= "^2.0"
 torchmetrics= "1.2.0"
@@ -52,7 +53,6 @@ ipython = "8.18.1"
 librosa = "0.10.1"
 numpy = "1.26.4"
 nvidia-cudnn-cu12 = "9.3.*"
-torchaudio = {version = "2.6.0", source = "pytorch-gpu-src"}
 scikit-learn = "1.3.2"
 pillow = "10.1.0"
 pandas = "2.1.3"
@@ -72,6 +72,10 @@ ipykernel = "^6.25.2"
 name = "PyPI"
 priority = "primary"
 
+[[tool.poetry.source]]
+name = "pytorch-cpu-src"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
 
 [[tool.poetry.source]]
 name = "pytorch-gpu-src"
