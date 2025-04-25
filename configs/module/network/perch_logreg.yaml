@@ -1,6 +1,7 @@
 model: 
   _target_: birdset.modules.models.perch.PerchModel
   num_classes: null
+  tfhub_url: https://www.kaggle.com/models/google/bird-vocalization-classifier/TensorFlow2/bird-vocalization-classifier
   tfhub_version: 4
   train_classifier: True
   restrict_logits: False
